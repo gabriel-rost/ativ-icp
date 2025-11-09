@@ -2,8 +2,8 @@
 ## 🚀 Executando o Projeto
 ### 1️⃣ Clonar o Repositório
 ``` 
-git clone repo
-cd repo
+git clone https://github.com/gabriel-rost/ativ-icp.git
+cd ativ-icp
 ``` 
 ### 2️⃣ Executar o Docker Compose
 Para acompanhar os logs utilize:
