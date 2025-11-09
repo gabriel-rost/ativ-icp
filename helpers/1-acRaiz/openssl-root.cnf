@@ -1,0 +1,63 @@
+# openssl-root.cnf - configuração completa para AC Raiz
+
+[ ca ]
+default_ca = CA_raiz
+
+[ CA_raiz ]
+# Diretórios e arquivos da CA Raiz
+dir               = .
+database          = ./index.txt
+serial            = ./serial
+crlnumber         = ./crlnumber
+new_certs_dir     = ./certs
+default_crl_days  = 30
+private_key       = ./private/ACkey.pem
+certificate       = ./certs/certificadoACraiz.crt
+default_md        = sha256
+crl               = ./crl/raiz.crl
+policy            = policy_loose
+
+[ policy_loose ]
+# Política para emissão interna (flexível)
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+# Configuração padrão para criação de CSR
+default_bits        = 4096
+default_md          = sha256
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+
+[ req_distinguished_name ]
+C  = BR
+ST = RS
+L  = Porto Alegre
+O  = Minha ICP Local
+OU = TI
+CN = web.local
+emailAddress = admin@localhost
+
+[ v3_ca ]
+# Extensões para certificados de CA
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints       = critical,CA:true
+keyUsage               = critical, cRLSign, keyCertSign
+crlDistributionPoints  = URI:http://pki.local/crl/raiz.crl
+authorityInfoAccess    = caIssuers;URI:http://pki.local/certs/certificadoACraiz.crt
+
+[ v3_req ]
+# Extensões padrão para certificados de servidor/usuário
+basicConstraints       = CA:FALSE
+keyUsage               = digitalSignature, keyEncipherment
+extendedKeyUsage       = serverAuth, clientAuth
+subjectAltName         = @alt_names
+
+[ alt_names ]
+DNS.1 = web.local

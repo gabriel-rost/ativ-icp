@@ -1,0 +1,24 @@
+[ req ]
+default_bits = 2048
+default_md = sha256
+distinguished_name = EC2
+prompt = no
+req_extension = req_ext
+
+[ EC2 ]
+countryName = MZ
+stateOrProvinceName = Maputo
+localityName = Maputo
+organizationName = UFSC
+organizationalUnitName = LabSEC
+commonName = AC Intermediária LabSEC
+emailAddress = EC2@ufsc.br
+
+[ req_ext ]
+basicConstraints = critical,CA:true,pathlen:0
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, keyCertSign, cRLSign
+# extensions para AC Intermediária
+authorityInfoAccess = caIssuers;URI:http://pki.local/pki/raiz/certs/certificadoACraiz.crt
+crlDistributionPoints = URI:http://pki.local/pki/raiz/crl/raiz.crl

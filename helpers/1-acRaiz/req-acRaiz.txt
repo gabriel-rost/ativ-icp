@@ -1,0 +1,31 @@
+[ req ]
+default_bits       = 4096
+default_keyfile    = ACkey.pem
+distinguished_name = req_do_gabriel
+x509_extensions    = x509_ext
+prompt             = no
+
+[ req_do_gabriel ]
+countryName                 = BR
+stateOrProvinceName         = Rio Grande do Sul
+localityName                = Rolante
+organizationName            = UFSC
+organizationalUnitName      = LabSEC
+commonName                  = AC Raiz Gabriel Rost
+emailAddress                = gabriel.rost@ufsc.br
+
+[ x509_ext ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+basicConstraints = critical,CA:true
+keyUsage = critical,keyCertSign,cRLSign
+authorityInfoAccess = caIssuers;URI:http://pki.local/raiz/certs/certificadoACraiz.crt
+crlDistributionPoints = URI:http://pki.local/raiz/crl/certificadoACraiz.crt
+
+# Extensões principais da AC Raiz
+basicConstraints            = critical,CA:true
+keyUsage                    = critical,keyCertSign,cRLSign
+
+# URLs para AIA e CRL (para clientes localizarem automaticamente os artefatos)
+authorityInfoAccess         = caIssuers;URI:http://pki.local/raiz/certs/certificadoACraiz.crt
+crlDistributionPoints       = URI:http://pki.local/raiz/crl/certificadoACraiz.crt
